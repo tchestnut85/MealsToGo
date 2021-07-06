@@ -1,62 +1,22 @@
-import { Image, Text, View } from "react-native";
+import {
+  Address,
+  Content,
+  Icon,
+  Info,
+  IsOpen,
+  Rating,
+  RestaurantCard,
+  RestaurantCardCover,
+  Statuses,
+  SubContent,
+} from "./RestaurantCardStyles";
 
-import { Card } from "react-native-paper";
 import React from "react";
+import { Spacer } from "../../../components/Spacer";
 import { SvgXml } from "react-native-svg";
+import { Text } from "../../../components/typography/Text/index";
 import open from "../../../../assets/open";
 import star from "../../../../assets/star";
-import styled from "styled-components/native";
-
-const RestaurantCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const RestaurantCardCover = styled(Card.Cover)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const Content = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const SubContent = styled(View)`
-  align-content: space-between;
-  justify-content: space-evenly;
-`;
-
-const Title = styled(Text)`
-  font-family: ${(props) => props.theme.fonts.heading}
-  font-weight: ${(props) => props.theme.fontWeights.bold};
-  font-size: ${(props) => props.theme.fontSizes.body};
-  color: ${(props) => props.theme.colors.ui.primary};
-`;
-
-const Address = styled(Text)`
-  font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
-`;
-
-const Statuses = styled(View)`
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-around;
-`;
-
-const Info = styled(View)`
-  padding: ${(props) => props.theme.space[3]};
-`;
-
-const Rating = styled(View)`
-  flex-direction: row;
-  padding-top: ${(props) => props.theme.space[2]};
-  padding-bottom: ${(props) => props.theme.space[2]};
-`;
-
-const IsOpen = styled(View)`
-  align-items: center;
-`;
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -79,9 +39,9 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
       <Info>
         <Content>
           <SubContent>
-            <Title>{name}</Title>
+            <Text variant="label">{name}</Text>
             <Rating>
-              {ratingArray.map((i) => (
+              {ratingArray.map((item, i) => (
                 <SvgXml xml={star} width={20} height={20} key={i} />
               ))}
             </Rating>
@@ -89,17 +49,19 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
           </SubContent>
           <SubContent>
             {isClosedTemporarily && (
-              <Text variant="label" style={{ color: "red" }}>
-                CLOSED TEMPORARILY
-              </Text>
+              <Text variant="error">CLOSED TEMPORARILY</Text>
             )}
             <Statuses>
-              {isOpenNow && (
-                <IsOpen>
-                  <SvgXml xml={open} width={20} height={20} />
-                </IsOpen>
-              )}
-              <Image source={{ uri: icon }} style={{ width: 20, height: 20 }} />
+              <Spacer position="top" size="large">
+                {isOpenNow && (
+                  <IsOpen>
+                    <SvgXml xml={open} width={20} height={20} />
+                  </IsOpen>
+                )}
+              </Spacer>
+              <Spacer position="top" size="lage">
+                <Icon source={{ uri: icon }} />
+              </Spacer>
             </Statuses>
           </SubContent>
         </Content>

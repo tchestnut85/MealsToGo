@@ -8,6 +8,7 @@ import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
+import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
 import { RestaurantsScreen } from "./src/features/restaurants/screens/RestaurantsScreen";
 import { SafeArea } from "./src/components/utils/SafeArea";
 import { Text } from "react-native";
@@ -61,19 +62,21 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Navigator
-            screenOptions={createScreenOptions}
-            tabBarOptions={{
-              activeTintColor: "teal",
-              inactiveTintColor: "gray",
-            }}
-          >
-            <Screen name="Restaurants" component={Restaurants} />
-            <Screen name="Map" component={Map} />
-            <Screen name="Settings" component={Settings} />
-          </Navigator>
-        </NavigationContainer>
+        <RestaurantsContextProvider>
+          <NavigationContainer>
+            <Navigator
+              screenOptions={createScreenOptions}
+              tabBarOptions={{
+                activeTintColor: "teal",
+                inactiveTintColor: "gray",
+              }}
+            >
+              <Screen name="Restaurants" component={Restaurants} />
+              <Screen name="Map" component={Map} />
+              <Screen name="Settings" component={Settings} />
+            </Navigator>
+          </NavigationContainer>
+        </RestaurantsContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
